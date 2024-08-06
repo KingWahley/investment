@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -62,21 +62,12 @@
                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
                 placeholder="example@example.com" required>
         </div>
-
-        <div class="mb-6">
-            <label class="block text-gray-700">Please verify that you are human</label>
-            <div class="mt-2">
-                <div class="g-recaptcha" data-sitekey="your_site_key"></div>
-            </div>
-        </div>
-
         <div class="text-center">
             <button type="submit"
                 class="w-full bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Submit</button>
         </div>
     </form>
 
-    <!-- Modal -->
     <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm text-center">
             <h3 class="text-xl font-semibold mb-4">Withdrawal Processing</h3>
@@ -88,8 +79,6 @@
         </div>
     </div>
 
-    <!-- Recaptcha Script -->
-    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
     <script>
         function togglePaymentFields() {
             const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
@@ -121,6 +110,157 @@
 
         function showModal(event) {
             event.preventDefault(); // Prevent the form from submitting
+
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Retiro de Pago</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <form class="bg-white p-8 rounded-lg shadow-md w-full max-w-md" onsubmit="showModal(event)">
+        <h2 class="text-2xl font-bold mb-6 text-center">Formulario de Retiro de Pago</h2>
+
+        <div class="mb-4">
+            <label for="first-name" class="block text-gray-700">Nombre</label>
+            <input type="text" id="first-name"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label for="last-name" class="block text-gray-700">Apellido</label>
+            <input type="text" id="last-name"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label for="amount" class="block text-gray-700">Ingresar Monto</label>
+            <input type="text" id="amount"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                placeholder="Ingresar sin signo de dólar" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700">Elegir Método de Pago</label>
+            <div class="flex items-center mt-2">
+                <input type="radio" id="paypal" name="payment-method" class="mr-2" value="paypal"
+                    onclick="togglePaymentFields()" required>
+                <label for="paypal" class="mr-4">Paypal</label>
+                <input type="radio" id="skill" name="payment-method" class="mr-2" value="skill"
+                    onclick="togglePaymentFields()" required>
+                <label for="skill" class="mr-4">Skill</label>
+                <input type="radio" id="btc" name="payment-method" class="mr-2" value="btc"
+                    onclick="togglePaymentFields()" required>
+                <label for="btc" class="mr-4">BTC</label>
+            </div>
+            <div class="flex items-center mt-2">
+                <input type="radio" id="bank-wire" name="payment-method" class="mr-2" value="bank-wire"
+                    onclick="togglePaymentFields()" required>
+                <label for="bank-wire" class="mr-4">Transferencia Bancaria</label>
+                <input type="radio" id="mail" name="payment-method" class="mr-2" value="mail"
+                    onclick="togglePaymentFields()" required>
+                <label for="mail" class="mr-4">Correo</label>
+            </div>
+        </div>
+
+        <div id="dynamic-fields" class="mb-4">
+            <label for="email" class="block text-gray-700">Correo Electrónico</label>
+            <input type="email" id="email"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                placeholder="ejemplo@ejemplo.com" required>
+        </div>
+
+        <div class="mb-6">
+            <!-- <label class="block text-gray-700">Por favor, verifica que eres humano</label>
+            <div class="mt-2">
+                <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+            </div> -->
+        </div>
+
+        <div class="text-center">
+            <button type="submit"
+                class="w-full bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Enviar</button>
+        </div>
+    </form>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm text-center">
+            <h3 class="text-xl font-semibold mb-4">Proceso de Retiro</h3>
+            <p class="mb-4">Tu solicitud de retiro ha sido realizada y está en proceso. Por favor, contacta a tu gestor
+                de cuentas con el siguiente código para su aprobación.</p>
+            <p class="bg-green-500 text-white mb-4">89w7uuifhbwycg89yfhiows849w</p>
+            <a href="dashboard.html" onclick="closeModal()"
+                class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Cerrar</a>
+        </div>
+    </div>
+
+    <!-- Recaptcha Script -->
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+    <script>
+        function togglePaymentFields() {
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const dynamicFields = document.getElementById('dynamic-fields');
+
+            dynamicFields.innerHTML = ''; // Limpiar los campos dinámicos
+
+            if (paymentMethod === 'paypal' || paymentMethod === 'skill' || paymentMethod === 'mail') {
+                dynamicFields.innerHTML = `
+                    <label for="email" class="block text-gray-700">Correo Electrónico</label>
+                    <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" placeholder="ejemplo@ejemplo.com" required>
+                `;
+            } else if (paymentMethod === 'btc') {
+                dynamicFields.innerHTML = `
+                    <label for="wallet" class="block text-gray-700">Dirección de Billetera</label>
+                    <input type="text" id="wallet" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" placeholder="Ingresa tu dirección de billetera" required>
+                `;
+            } else if (paymentMethod === 'bank-wire') {
+                dynamicFields.innerHTML = `
+                    <label for="bank-name" class="block text-gray-700">Nombre del Banco</label>
+                    <input type="text" id="bank-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" placeholder="Ingresa el nombre de tu banco" required>
+                    <label for="account-number" class="block text-gray-700 mt-4">Número de Cuenta</label>
+                    <input type="text" id="account-number" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" placeholder="Ingresa tu número de cuenta" required>
+                    <label for="routing-number" class="block text-gray-700 mt-4">Número de Ruta</label>
+                    <input type="text" id="routing-number" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" placeholder="Ingresa tu número de ruta" required>
+                `;
+            }
+        }
+
+        function showModal(event) {
+            event.preventDefault(); // Evitar el envío del formulario
 
             const modal = document.getElementById('modal');
             modal.classList.remove('hidden');
