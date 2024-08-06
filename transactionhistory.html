@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction List</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .active-tab {
+            background-color: #1E40AF;
+            padding: 5px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg mt-10">
+        <div class="flex justify-between items-center bg-blue-500 text-white px-4 py-2 rounded-t-lg">
+            <div class="flex items-center space-x-2">
+                <div class="text-lg font-semibold">Transactions</div>
+            </div>
+            <a href="dashboard.html" class="text-sm p-4 hover:bg-red-500 rounded-lg">Back</a>
+        </div>
+        <div class="flex justify-between items-center bg-blue-400 text-white px-4 py-2">
+            <div class="flex space-x-4">
+                <button id="allTab" class="text-sm active-tab" onclick="filterTransactions('all')">All</button>
+                <button id="receivedTab" class="text-sm" onclick="filterTransactions('received')">Received</button>
+                <button id="sentTab" class="text-sm" onclick="filterTransactions('sent')">Sent</button>
+            </div>
+        </div>
+        <div id="transactionList" class="px-4 py-2 bg-white">
+            <!-- Transactions will be dynamically added here -->
+        </div>
+        <div onclick="saveAsPDF()" class="flex justify-between text-blue-500 hover:bg-blue-400 hover:text-white items-center bg-white px-4 py-2 rounded-b-lg border-t">
+            <button class="flex-1 text-center " >Save as PDF</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        const transactions = [
+            { name: "Javier Gómez", description: "Investment Capital", amount: 100, date: "18 July 2024", type: "received" },
+            { name: "Account Charges", description: "Deposit Charges", amount: -0.96, date: "18 July 2024", type: "sent" },
+        ];
+
+        function filterTransactions(type) {
+            const transactionList = document.getElementById("transactionList");
+            transactionList.innerHTML = "";
+
+            const filteredTransactions = transactions.filter(transaction => type === 'all' || transaction.type === type);
+
+            filteredTransactions.forEach(transaction => {
+                const transactionItem = document.createElement("div");
+                transactionItem.className = "flex justify-between items-center border-b py-2";
+                transactionItem.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="text-gray-800 font-medium">${transaction.name}</span>
+                        <span class="text-sm text-gray-500">${transaction.description}</span>
+                    </div>
+                    <div class="${transaction.amount > 0 ? 'text-green-500' : 'text-red-500'} font-medium">${transaction.amount > 0 ? '+' : ''} $${transaction.amount}</div>
+                `;
+                transactionList.appendChild(transactionItem);
+            });
+
+            document.getElementById("allTab").classList.remove("active-tab");
+            document.getElementById("receivedTab").classList.remove("active-tab");
+            document.getElementById("sentTab").classList.remove("active-tab");
+
+            if (type === 'all') {
+                document.getElementById("allTab").classList.add("active-tab");
+            } else if (type === 'received') {
+                document.getElementById("receivedTab").classList.add("active-tab");
+            } else if (type === 'sent') {
+                document.getElementById("sentTab").classList.add("active-tab");
+            }
+        }
+
+        function saveAsPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            let yOffset = 10;
+
+            doc.setFontSize(16);
+            doc.text("Transactions", 10, yOffset);
+
+            transactions.forEach(transaction => {
+                yOffset += 10;
+                doc.setFontSize(12);
+                doc.text(`${transaction.name} - ${transaction.description} - $${transaction.amount} - ${transaction.date}`, 10, yOffset);
+            });
+
+            doc.save("transactions.pdf");
+        }
+
+        // Initial load
+        filterTransactions('all');
+    </script>
+</body>
+
+</html>

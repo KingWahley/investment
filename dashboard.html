@@ -150,8 +150,8 @@
             <ul>
                 <li class="mb-4"><a href="#" class="text-white">Dashboard</a></li>
                 <li class="mb-4"><a href="withdrawal.html" class="text-gray-400">Withdraws</a></li>
-                <li class="mb-4"><a href="#" class="text-gray-400">Transaction History</a></li>
-                <li class="mb-4"><a href="#" class="text-gray-400">Instructions</a></li>
+                <li class="mb-4"><a href="transactionhistory.html" class="text-gray-400">Transaction History</a></li>
+                <!-- <li class="mb-4"><a href="#" class="text-gray-400">Instructions</a></li> -->
                 <li class="mb-4"><a href="#" class="text-gray-400">My Account Officer</a></li>
                 <a href="index.html" class="text-gray-400 mb-4 bg-red-500 p-2 text-white rounded-lg">Logout</a>
             </ul>
@@ -162,7 +162,7 @@
                 <div>
                     <h2 class="text-2xl font-bold text-white">Welcome Back, Javier Gómez</h2>
                     <p>javiereduardop24@gmail.com</p>
-                    <p class="text-gray-500">Happy to see you again. Get updates on your asset today, good luck!</p>
+                    <p class="text-gray-500">Happy to see you again. Below are the updates on your asset today, good luck!</p>
                 </div>
                 <button id="menu-btn" class="md:hidden text-white focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -172,12 +172,12 @@
                     </svg>
                 </button>
             </header>
-            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                 <div class="card p-4">
                     <h3 class="text-lg font-semibold text-white mb-2">My Investment Capital</h3>
                     <div class="flex justify-between ">
                         <p class="text-2xl font-bold text-white">$<span id="investment">178,975</span></p>
-                        <button class="bg-green-500 p-2 text-white hover:bg-green-700 rounded-lg"><span class="text-l p-2">+</span>Add to Capital</button>
+                        <a href="deposit.html" class="bg-green-500 p-2 text-white hover:bg-green-700 rounded-lg"><span class="text-l p-2">+</span>Add to Capital</a>
                     </div>
                     
                 </div>
@@ -193,6 +193,9 @@
                             class="text-l p-2">-</span>Withdraw</a>
                 </div>
                 </div>
+            </section>
+            <section class="mb-4">
+                <p>Javier, the more money you have in your capital, the faster and bigger you earn, add to your capital now to boost your earnings. your financial freedom is in your hands</p>
             </section>
             <section class="card p-6 mb-6">
                 <h3 class="text-lg font-semibold text-white mb-4">Investment Progress</h3>
@@ -230,9 +233,9 @@
         <h1 class="text-xl text-white font-bold mb-6">Meinvest</h1>
         <ul>
             <li class="mb-4"><a href="#" class="text-white">Dashboard</a></li>
-            <li class="mb-4"><a href="#" class="text-gray-400">Withdraws</a></li>
-            <li class="mb-4"><a href="#" class="text-gray-400">Transaction History</a></li>
-            <li class="mb-4"><a href="#" class="text-gray-400">Instructions</a></li>
+            <li class="mb-4"><a href="withdrawal.html" class="text-gray-400">Withdraws</a></li>
+            <li class="mb-4"><a href="transactionhistory.html" class="text-gray-400">Transaction History</a></li>
+            <!-- <li class="mb-4"><a href="#" class="text-gray-400">Instructions</a></li> -->
             <li class="mb-4"><a href="#" class="text-gray-400">My Account Officer</a></li>
             <a href="index.html" class="text-gray-400 mb-4 bg-red-500 p-2 text-white rounded-lg">Logout</a>
         </ul>
@@ -241,9 +244,9 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Example data for investment and balance
-            const investment = 100;
-            const profits = 25;
-            const margin = 125;
+            const investment = 99.04;
+            const profits = 21;
+            const margin = 120.04;
             const progress = (profits / investment) * 100;
 
             // Update investment, profits, and margin

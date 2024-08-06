@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Withdrawal Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <form class="bg-white p-8 rounded-lg shadow-md w-full max-w-md" onsubmit="showModal(event)">
+        <h2 class="text-2xl font-bold mb-6 text-center">fund your account</h2>
+
+        <div class="mb-4">
+            <label for="first-name" class="block text-gray-700">First Name</label>
+            <input type="text" id="first-name"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label for="last-name" class="block text-gray-700">Last Name</label>
+            <input type="text" id="last-name"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label for="amount" class="block text-gray-700">Enter Amount</label>
+            <input type="text" id="amount"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                placeholder="Enter without dollar sign" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700">Choose Payment method</label>
+            <div class="flex items-center mt-2">
+                <input type="radio" id="paypal" name="payment-method" class="mr-2" value="bitcoin"
+                    onclick="togglePaymentFields()" required>
+                <label for="paypal" class="mr-4">USDT</label>
+                <!-- <input type="radio" id="skill" name="payment-method" class="mr-2" value="skill"
+                    onclick="togglePaymentFields()" required>
+                <label for="skill" class="mr-4">Skill</label> -->
+                <input type="radio" id="btc" name="payment-method" class="mr-2" value="USDT"
+                    onclick="togglePaymentFields()" required>
+                <label for="btc" class="mr-4">BTC</label>
+            </div>
+            <div class="flex items-center mt-2">
+                <input type="radio" id="bank-wire" name="payment-method" class="mr-2" value="ETH"
+                    onclick="togglePaymentFields()" required>
+                <label for="bank-wire" class="mr-4">ETH</label>
+                <!-- <input type="radio" id="mail" name="payment-method" class="mr-2" value="mail"
+                    onclick="togglePaymentFields()" required>
+                <label for="mail" class="mr-4">Mail</label> -->
+            </div>
+        </div>
+
+        <div id="dynamic-fields" class="mb-4">
+            <p>Please select a coin</p>
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700">Please verify that you are human</label>
+            <div class="mt-2">
+                <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit"
+                class="w-full bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Submit</button>
+        </div>
+    </form>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm text-center">
+            <!-- <h3 class="text-xl font-semibold mb-4">Withdrawal Processing</h3> -->
+            <p class="mb-4">you can now go ahead to make payment so the selected walle, your account will automatically top up once you do. Contact your account manager if you run into any problems. Remember to keep a screenshot of your transactions.
+            </p>
+            <!-- <p class="bg-green-500 text-white mb-4">89w7uuifhbwycg89yfhiows849w</p> -->
+            <a href="dashboard.html" onclick="closeModal()"
+                class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Close</a>
+        </div>
+    </div>
+
+    <!-- Recaptcha Script -->
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+    <script>
+        function togglePaymentFields() {
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            const dynamicFields = document.getElementById('dynamic-fields');
+
+            dynamicFields.innerHTML = ''; // Clear the dynamic fields
+
+            if (paymentMethod === 'bitcoin' ) {
+                dynamicFields.innerHTML = `
+                    <p>please copy and send to the below wallet<p>
+                    <p class="bg-green-300 p-4">34563frgdvdfvd<p>
+                `;
+            } else if (paymentMethod === 'ETH') {
+                dynamicFields.innerHTML = `
+                    <p>please copy and send to the below wallet<p>
+                    <p class="bg-green-300 p-4">2343tgvvsvdvds<p>
+                `;
+            } else if (paymentMethod === 'USDT') {
+                dynamicFields.innerHTML = `
+                    <p>please copy and send to the below wallet<p>
+                    <p class="bg-green-300 p-4">ndhuihjkncdeuihjcnew8yuw09qjieoa<p>
+                `;
+            }
+        }
+
+        function showModal(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
