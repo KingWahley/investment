@@ -385,6 +385,14 @@
             >60%</span
           >
         </section>
+        <section class="card p-6 mb-6"></section>
+    <h3 class="text-lg font-semibold text-white mb-4">Porcentaje de la tarifa de retiro realizada.</h3>
+    <p>Por favor, complete su tarifa de retiro para que pueda acceder a su ganancia</p>
+    <div class="w-full bg-gray-700 rounded-full h-4">
+        <div id="withdrawal-fee-progress-bar" class="progress-bar h-4 rounded-full" style="width: 30%;"></div>
+    </div>
+    <span id="withdrawal-fee-progress-text" class="block text-right mt-2 text-white">30%</span>
+</section>
         <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div class="card p-6">
             <h3 class="text-lg font-semibold text-white mb-4">
@@ -448,11 +456,43 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        // Example data for investment and balance
+        const investment = 99.04;
+        const profits = 21;
+        const margin = 120.04;
+        const progress = 60
+
+        // Update investment, profits, and margin
+        document.getElementById("investment").textContent =
+          investment.toLocaleString();
+        document.getElementById("profits").textContent =
+          profits.toLocaleString();
+        document.getElementById("margin").textContent = margin.toLocaleString();
+
+        // Update progress bar for investment progress
+        document.getElementById("progress-bar").style.width = `${progress}%`;
+        document.getElementById(
+          "progress-text"
+        ).textContent = `${progress.toFixed(2)}%`;
+
+        // Example data for withdrawal fee progress
+        const withdrawalFeeProgress = 60; // Change the percentage as needed
+
+        // Update progress bar for withdrawal fee progress
+        document.getElementById(
+          "withdrawal-fee-progress-bar"
+        ).style.width = `${withdrawalFeeProgress}%`;
+        document.getElementById(
+          "withdrawal-fee-progress-text"
+        ).textContent = `${withdrawalFeeProgress}%`;
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
         // Ejemplo de datos para inversión y balance
         const investment = 99.04;
-        const profits = 3503;
-        const margin = 3506.04;
-        const progress = 80.2;
+        const profits = 4803;
+        const margin = 4806.04;
+        const progress = 94.8;
         // (profits / investment) * 100;
 
         // Actualizar inversión, ganancias y margen

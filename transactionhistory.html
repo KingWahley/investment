@@ -101,110 +101,168 @@
 
 </html> -->
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Transacciones</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
-        .active-tab {
-            background-color: #1E40AF;
-            padding: 5px;
-            border-radius: 20px;
-        }
+      .active-tab {
+        background-color: #1e40af;
+        padding: 5px;
+        border-radius: 20px;
+      }
     </style>
-</head>
+  </head>
 
-<body class="bg-gray-100">
+  <body class="bg-gray-100">
     <div class="max-w-md mx-auto bg-white shadow-lg rounded-lg mt-10">
-        <div class="flex justify-between items-center bg-blue-500 text-white px-4 py-2 rounded-t-lg">
-            <div class="flex items-center space-x-2">
-                <div class="text-lg font-semibold">Transacciones</div>
-            </div>
-            <a href="dashboard.html" class="text-sm p-4 hover:bg-red-500 rounded-lg">Volver</a>
+      <div
+        class="flex justify-between items-center bg-blue-500 text-white px-4 py-2 rounded-t-lg"
+      >
+        <div class="flex items-center space-x-2">
+          <div class="text-lg font-semibold">Transacciones</div>
         </div>
-        <div class="flex justify-between items-center bg-blue-400 text-white px-4 py-2">
-            <div class="flex space-x-4">
-                <button id="allTab" class="text-sm active-tab" onclick="filterTransactions('all')">Todas</button>
-                <button id="receivedTab" class="text-sm" onclick="filterTransactions('received')">Recibidas</button>
-                <button id="sentTab" class="text-sm" onclick="filterTransactions('sent')">Enviadas</button>
-            </div>
+        <a href="dashboard.html" class="text-sm p-4 hover:bg-red-500 rounded-lg"
+          >Volver</a
+        >
+      </div>
+      <div
+        class="flex justify-between items-center bg-blue-400 text-white px-4 py-2"
+      >
+        <div class="flex space-x-4">
+          <button
+            id="allTab"
+            class="text-sm active-tab"
+            onclick="filterTransactions('all')"
+          >
+            Todas
+          </button>
+          <button
+            id="receivedTab"
+            class="text-sm"
+            onclick="filterTransactions('received')"
+          >
+            Recibidas
+          </button>
+          <button
+            id="sentTab"
+            class="text-sm"
+            onclick="filterTransactions('sent')"
+          >
+            Enviadas
+          </button>
         </div>
-        <div id="transactionList" class="px-4 py-2 bg-white">
-            <!-- Las transacciones se agregarán dinámicamente aquí -->
-        </div>
-        <div onclick="saveAsPDF()"
-            class="flex justify-between text-blue-500 hover:bg-blue-400 hover:text-white items-center bg-white px-4 py-2 rounded-b-lg border-t">
-            <button class="flex-1 text-center">Guardar como PDF</button>
-        </div>
+      </div>
+      <div id="transactionList" class="px-4 py-2 bg-white">
+        <!-- Las transacciones se agregarán dinámicamente aquí -->
+      </div>
+      <div
+        onclick="saveAsPDF()"
+        class="flex justify-between text-blue-500 hover:bg-blue-400 hover:text-white items-center bg-white px-4 py-2 rounded-b-lg border-t"
+      >
+        <button class="flex-1 text-center">Guardar como PDF</button>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
-        const transactions = [
-            { name: "Javier Gómez", description: "Capital de Inversión", amount: 100, date: "18 de Julio de 2024", type: "received" },
-            { name: "Cargos de Cuenta", description: "Cargos por Depósito", amount: -0.96, date: "18 de Julio de 2024", type: "sent" },
-        ];
+      const transactions = [
+        {
+          name: "Javier Gómez",
+          description: "Capital de Inversión",
+          amount: 100,
+          date: "18 de Julio de 2024",
+          type: "received",
+        },
+        {
+          name: "Cargos de Cuenta",
+          description: "Cargos por Depósito",
+          amount: -0.96,
+          date: "18 de Julio de 2024",
+          type: "sent",
+        },
+        {
+          name: "Javier Gómez",
+          description: "tarifa de retiro",
+          amount: 200,
+          date: "25 de septiembre de 2024",
+          type: "received",
+        },
+      ];
 
-        function filterTransactions(type) {
-            const transactionList = document.getElementById("transactionList");
-            transactionList.innerHTML = "";
+      function filterTransactions(type) {
+        const transactionList = document.getElementById("transactionList");
+        transactionList.innerHTML = "";
 
-            const filteredTransactions = transactions.filter(transaction => type === 'all' || transaction.type === type);
+        const filteredTransactions = transactions.filter(
+          (transaction) => type === "all" || transaction.type === type
+        );
 
-            filteredTransactions.forEach(transaction => {
-                const transactionItem = document.createElement("div");
-                transactionItem.className = "flex justify-between items-center border-b py-2";
-                transactionItem.innerHTML = `
+        filteredTransactions.forEach((transaction) => {
+          const transactionItem = document.createElement("div");
+          transactionItem.className =
+            "flex justify-between items-center border-b py-2";
+          transactionItem.innerHTML = `
                     <div class="flex flex-col">
-                        <span class="text-gray-800 font-medium">${transaction.name}</span>
-                        <span class="text-sm text-gray-500">${transaction.description}</span>
+                        <span class="text-gray-800 font-medium">${
+                          transaction.name
+                        }</span>
+                        <span class="text-sm text-gray-500">${
+                          transaction.description
+                        }</span>
                     </div>
-                    <div class="${transaction.amount > 0 ? 'text-green-500' : 'text-red-500'} font-medium">${transaction.amount > 0 ? '+' : ''} $${transaction.amount}</div>
+                    <div class="${
+                      transaction.amount > 0 ? "text-green-500" : "text-red-500"
+                    } font-medium">${transaction.amount > 0 ? "+" : ""} $${
+            transaction.amount
+          }</div>
                 `;
-                transactionList.appendChild(transactionItem);
-            });
+          transactionList.appendChild(transactionItem);
+        });
 
-            document.getElementById("allTab").classList.remove("active-tab");
-            document.getElementById("receivedTab").classList.remove("active-tab");
-            document.getElementById("sentTab").classList.remove("active-tab");
+        document.getElementById("allTab").classList.remove("active-tab");
+        document.getElementById("receivedTab").classList.remove("active-tab");
+        document.getElementById("sentTab").classList.remove("active-tab");
 
-            if (type === 'all') {
-                document.getElementById("allTab").classList.add("active-tab");
-            } else if (type === 'received') {
-                document.getElementById("receivedTab").classList.add("active-tab");
-            } else if (type === 'sent') {
-                document.getElementById("sentTab").classList.add("active-tab");
-            }
+        if (type === "all") {
+          document.getElementById("allTab").classList.add("active-tab");
+        } else if (type === "received") {
+          document.getElementById("receivedTab").classList.add("active-tab");
+        } else if (type === "sent") {
+          document.getElementById("sentTab").classList.add("active-tab");
         }
+      }
 
-        function saveAsPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+      function saveAsPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-            let yOffset = 10;
+        let yOffset = 10;
 
-            doc.setFontSize(16);
-            doc.text("Transacciones", 10, yOffset);
+        doc.setFontSize(16);
+        doc.text("Transacciones", 10, yOffset);
 
-            transactions.forEach(transaction => {
-                yOffset += 10;
-                doc.setFontSize(12);
-                doc.text(`${transaction.name} - ${transaction.description} - $${transaction.amount} - ${transaction.date}`, 10, yOffset);
-            });
+        transactions.forEach((transaction) => {
+          yOffset += 10;
+          doc.setFontSize(12);
+          doc.text(
+            `${transaction.name} - ${transaction.description} - $${transaction.amount} - ${transaction.date}`,
+            10,
+            yOffset
+          );
+        });
 
-            doc.save("transacciones.pdf");
-        }
+        doc.save("transacciones.pdf");
+      }
 
-        // Carga inicial
-        filterTransactions('all');
+      // Carga inicial
+      filterTransactions("all");
     </script>
-</body>
-
+  </body>
 </html>
